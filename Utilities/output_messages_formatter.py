@@ -1,11 +1,4 @@
-import requests, json
-import os
-# import urllib.parse
-# payload = urllib.parse.quote('{"weekDayNumber":1,"meal":"Colazione"}')
-# print(payload)
-
-
-GAS_BASE_URL = os.getenv("GAS_BASE_URL")
+import json 
 
 def format_plan_for_telegram(plan: dict) -> str:
     """
@@ -31,17 +24,3 @@ def format_plan_for_telegram(plan: dict) -> str:
             return "\n".join(lines)
     except:
         return json.dumps(plan)
-
-
-def get_daily_plan(week_day_number=None, meal=None):
-    payload = json.dumps({"weekDayNumber": week_day_number, "meal": meal})
-    params = {
-        "action": "getPlan",
-        "payload": payload
-    }
-    res = requests.get(GAS_BASE_URL, params=params)
-    res.close()
-    return format_plan_for_telegram(res.json())
-
-# Esempio uso:
-print(get_plan())
