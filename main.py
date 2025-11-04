@@ -1,10 +1,11 @@
 import requests, json
+import os
 # import urllib.parse
 # payload = urllib.parse.quote('{"weekDayNumber":1,"meal":"Colazione"}')
 # print(payload)
 
 
-GAS_BASE_URL = "https://script.google.com/macros/s/AKfycbxpi8eh0Rs1edtIJ7e_eoYdUgamzZjqM-yWbK5pSaMBmldWSmu1www2v34hSyKRtrpD/exec"
+GAS_BASE_URL = os.getenv("GAS_BASE_URL")
 
 def format_plan_for_telegram(plan: dict) -> str:
     """
@@ -32,7 +33,7 @@ def format_plan_for_telegram(plan: dict) -> str:
         return json.dumps(plan)
 
 
-def get_plan(week_day_number=None, meal=None):
+def get_daily_plan(week_day_number=None, meal=None):
     payload = json.dumps({"weekDayNumber": week_day_number, "meal": meal})
     params = {
         "action": "getPlan",
